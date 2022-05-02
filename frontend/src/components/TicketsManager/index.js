@@ -7,8 +7,9 @@ import InputBase from "@material-ui/core/InputBase";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Badge from "@material-ui/core/Badge";
-import MoveToInboxIcon from "@material-ui/icons/MoveToInbox";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+
+import { Inboxes, Check2Circle,Search  } from 'react-bootstrap-icons';
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
@@ -25,6 +26,7 @@ import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   ticketsWrapper: {
+ 
     position: "relative",
     display: "flex",
     height: "100%",
@@ -32,11 +34,14 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
+    border: "none", //
+    boxShadow: "none", //
+    borderRadius: ".5rem"
   },
 
   tabsHeader: {
     flex: "none",
-    backgroundColor: "#eee",
+    backgroundColor: "white", //
   },
 
   settingsIcon: {
@@ -46,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   tab: {
+    borderRadius: ".5rem", //
     minWidth: 120,
     width: 120,
   },
@@ -54,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "#fafafa",
+    background: "white", //
     padding: theme.spacing(1),
   },
 
@@ -170,13 +176,13 @@ const TicketsManager = () => {
         >
           <Tab
             value={"open"}
-            icon={<MoveToInboxIcon />}
+            icon={<Inboxes size={20}/>}
             label={i18n.t("tickets.tabs.open.title")}
             classes={{ root: classes.tab }}
           />
           <Tab
             value={"closed"}
-            icon={<CheckBoxIcon />}
+            icon={<Check2Circle size={20}/>}
             label={i18n.t("tickets.tabs.closed.title")}
             classes={{ root: classes.tab }}
           />
@@ -191,7 +197,7 @@ const TicketsManager = () => {
       <Paper square elevation={0} className={classes.ticketOptionsBox}>
         {tab === "search" ? (
           <div className={classes.serachInputWrapper}>
-            <SearchIcon className={classes.searchIcon} />
+            <Search className={classes.searchIcon} />
             <InputBase
               className={classes.searchInput}
               inputRef={searchInputRef}

@@ -29,7 +29,11 @@ import { toast } from "react-toastify";
 import ConfirmationModal from "../../components/ConfirmationModal";
 
 const useStyles = makeStyles((theme) => ({
+ // ----------Filas-------------------- 
   mainPaper: {
+    border: "none", //
+    boxShadow: "none", //
+    margin: "0rem 1rem", //
     flex: 1,
     padding: theme.spacing(1),
     overflowY: "scroll",

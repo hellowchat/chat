@@ -33,6 +33,7 @@ import toastError from "../../errors/toastError";
 
 const useStyles = makeStyles((theme) => ({
   messagesListWrapper: {
+
     overflow: "hidden",
     position: "relative",
     display: "flex",

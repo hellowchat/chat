@@ -29,17 +29,23 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    background: "#F0F4F8",  //
     display: "flex",
     height: "100vh",
+
     [theme.breakpoints.down("sm")]: {
       height: "calc(100vh - 56px)",
     },
   },
 
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    
+    paddingRight: 24, 
+    
+    // keep right padding when drawer closed
   },
   toolbarIcon: {
+
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
@@ -47,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "48px",
   },
   appBar: {
+    backgroundColor: "#F0F4F8", //
+    boxShadow: "none", //
+    color:"#FE3E6D", //
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -54,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   appBarShift: {
+    color:"#FE3E6D", //
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
@@ -62,16 +72,21 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
+    color: "#FE3E6D",
     marginRight: 36,
   },
   menuButtonHidden: {
-    display: "none",
+    display: "none"
   },
   title: {
     flexGrow: 1,
   },
   drawerPaper: {
+    
     position: "relative",
+    backgroundColor:"#193044",
+    color:"white",
+   // borderRadius: ".5rem",
     whiteSpace: "nowrap",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -80,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerPaperClose: {
+    color: "white",
     overflowX: "hidden",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -94,14 +110,17 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "48px",
   },
   content: {
+    
     flex: 1,
     overflow: "auto",
   },
   container: {
+    
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
   paper: {
+    
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
@@ -178,7 +197,13 @@ const LoggedInLayout = ({ children }) => {
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
-            <ChevronLeftIcon />
+            <ChevronLeftIcon 
+            style={
+              {
+                color: "#FE3E6D" //
+              }
+            }
+            />
           </IconButton>
         </div>
         <Divider />
@@ -217,7 +242,7 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            WhaTicket
+            
           </Typography>
           {user.id && <NotificationsPopOver />}
 

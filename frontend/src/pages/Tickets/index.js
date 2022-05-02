@@ -12,15 +12,19 @@ import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
+    border: "none", //
+    boxShadow: "none", //
+    margin: "0rem 1rem", //
+
     flex: 1,
-    // // backgroundColor: "#eee",
+    backgroundColor: "#F0F4F8", //
     // padding: theme.spacing(4),
     height: `calc(100% - 48px)`,
     overflowY: "hidden",
   },
 
   chatPapper: {
-    // backgroundColor: "red",
+   // backgroundColor: "red",
     display: "flex",
     height: "100%",
   },
@@ -44,15 +48,19 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "100%",
     flexDirection: "column",
+  
   },
   welcomeMsg: {
-    backgroundColor: "#eee",
+    border: "none",
+    boxShadow: "none",
+    margin: "0rem .5rem", //
+    backgroundColor: "white", //
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
     height: "100%",
     textAlign: "center",
-    borderRadius: 0,
+    borderRadius: ".5rem", //
   },
   ticketsManager: {},
   ticketsManagerClosed: {
@@ -89,6 +97,7 @@ const Chat = () => {
               </>
             ) : (
               <Hidden only={["sm", "xs"]}>
+               
                 <Paper className={classes.welcomeMsg}>
                   {/* <Paper square variant="outlined" className={classes.welcomeMsg}> */}
                   <span>{i18n.t("chat.noTicketMessage")}</span>

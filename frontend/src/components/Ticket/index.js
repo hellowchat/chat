@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     position: "relative",
     overflow: "hidden",
+    marginLeft:".2rem", //
+    borderRadius: ".5rem" //
   },
 
   ticketInfo: {
@@ -47,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   mainWrapper: {
+    
     flex: 1,
     height: "100%",
     display: "flex",
