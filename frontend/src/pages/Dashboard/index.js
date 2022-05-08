@@ -6,14 +6,16 @@ import Grid from "@material-ui/core/Grid"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
-import SearchFull from "../../hooks/useTickets/filter"
+
 import TextField from '@material-ui/core/TextField';
 import { AuthContext } from "../../context/Auth/AuthContext";
 import Select from '@material-ui/core/Select';
 import { i18n } from "../../translate/i18n";
 import MenuItem from '@material-ui/core/MenuItem';
 import Chart from "./Chart"
+import toastError from "../../errors/toastError";
 
+import api from "../../services/api";
 const useStyles = makeStyles(theme => ({
 	container: {
 
@@ -46,6 +48,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }))
 
+
 const Dashboard = () => {
 
 	const classes = useStyles()
@@ -53,61 +56,72 @@ const Dashboard = () => {
 
 	const { user } = useContext(AuthContext);
 
+	const [loading, setLoading] = useState(true);
+
+	const [tickets, setTickets] = useState([]);
 
 
-
-	const [userId, setUserId] = useState(0);
+	const [userId, setUserId] = useState('');
+	const [users, setUsers] = useState([]);
 	const [dateIni, setDateIni] = useState('');
 	const [dateFin, setDateFin] = useState('');
 
 
 
-	const [openTickets, setOpenTickets] = useState([]);
-	const [pendingTickets, setPendingTickets] = useState([]);
-	const [closedTickets, setClosedTickets] = useState([]);
+	const [openTickets, setOpenTickets] = useState(0);
+	const [pendingTickets, setPendingTickets] = useState(0);
+	const [closedTickets, setClosedTickets] = useState(0);
+
+	const buttonSearchByUserId = async () => {
+		setLoading(true)
+		const delayDebounceFn = setTimeout(() => {
+			const fetchTickets = async () => {
+				try {
+					const { data } = await api.get("/tickets/custom", {
+						params: {
+							dateIni,
+							dateFin,
+							userId,
 
 
-	const SearchTickets = (userId, dateIni, dateFin, status) => {
 
-		//passar datainicial
-		//passar datafinal
-		//passar atendente
+						},
+					})
 
-		const { tickets } = SearchFull({
-			userId: userId,
-			dateIni: dateIni,
-			dateFin: dateFin,
-			status: status
-		});
-		return tickets;
+					const result = await api.get("/users")
+
+					setUsers(result.data.users)
+
+					setOpenTickets(data.open)
+					setPendingTickets(data.pending)
+					setClosedTickets(data.closed)
+
+					setTickets(data)
+
+
+
+
+
+
+					setLoading(false)
+				} catch (err) {
+
+					setLoading(false)
+					toastError(err)
+				}
+			}
+
+
+
+			fetchTickets()
+		}, 500)
+		return () => clearTimeout(delayDebounceFn)
+
 	}
-	const buttonSearchByUserId = () => {
-/* 
-		const ticketsOpen = this.SearchTickets(userId, dateIni, dateFin, 'open');
 
-		const ticketsPending = this.SearchTickets(userId, dateIni, dateFin, 'pending');
-		const ticketsClosed = this.SearchTickets(userId, dateIni, dateFin, 'closed');
+	useEffect(() => {
+		buttonSearchByUserId()
 
-		
-		setOpenTickets([ticketsOpen])
-		pendingTickets([ticketsPending])
-		closedTickets([ticketsClosed]) */
-		/* 	setOpenTickets(SearchTickets(userId, dateIni, dateFin, 'open'))
-			setPendingTickets(SearchTickets(userId, dateIni, dateFin, 'pending'))
-			setClosedTickets(SearchTickets(userId, dateIni, dateFin, 'closed')) */
-	}
-
-	useEffect(()=> {
-		
-		/* const ticketsOpen = this.SearchTickets(userId, dateIni, dateFin, 'open');
-
-		const ticketsPending = this.SearchTickets(userId, dateIni, dateFin, 'pending');
-		const ticketsClosed = this.SearchTickets(userId, dateIni, dateFin, 'closed');
- */
-		
-		setOpenTickets([10])
-		pendingTickets([40])
-		closedTickets([100])
 	}, []);
 
 	return (
@@ -116,6 +130,10 @@ const Dashboard = () => {
 
 
 				<form className={classes.container} noValidate>
+
+
+
+
 					<Select
 						value={userId}
 						onChange={
@@ -125,12 +143,14 @@ const Dashboard = () => {
 						name="searchUserId"
 						className=""
 					>
-						<MenuItem value={0}>
-							<em>All</em>
-						</MenuItem>
-						<MenuItem value={1}>Joao</MenuItem>
-						<MenuItem value={2}>Mileide</MenuItem>
-						<MenuItem value={3}>Luan</MenuItem>
+
+						{users.map((e) => {
+
+							return <MenuItem value={e.id} key={e.id}>
+								{e.name}
+							</MenuItem>
+						})}
+
 					</Select>
 
 

@@ -7,6 +7,12 @@ const ticketRoutes = express.Router();
 
 ticketRoutes.get("/tickets", isAuth, TicketController.index);
 
+
+//new route to get tickets by custom filters
+ticketRoutes.get("/tickets/custom", isAuth, TicketController.fullfilter);
+
+
+
 ticketRoutes.get("/tickets/:ticketId", isAuth, TicketController.show);
 
 ticketRoutes.post("/tickets", isAuth, TicketController.store);

@@ -18,12 +18,12 @@ type IndexQuery = {
 export const index = async (req: Request, res: Response): Promise<Response> => {
   const { searchParam, pageNumber } = req.query as IndexQuery;
 
-  const { users, count, hasMore } = await ListUsersService({
+  const { users, count, hasMore,usersId } = await ListUsersService({
     searchParam,
     pageNumber
   });
 
-  return res.json({ users, count, hasMore });
+  return res.json({ users, count, hasMore ,usersId});
 };
 
 export const store = async (req: Request, res: Response): Promise<Response> => {

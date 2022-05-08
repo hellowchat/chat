@@ -12,6 +12,7 @@ interface Response {
   users: User[];
   count: number;
   hasMore: boolean;
+  usersId:Array<number>
 }
 
 const ListUsersService = async ({
@@ -45,12 +46,23 @@ const ListUsersService = async ({
     ]
   });
 
+  let usersId=new Array;
+
+  users.forEach((e)=>{
+
+    usersId.push(e.id)
+    
+  })
+
+  
+
   const hasMore = count > offset + users.length;
 
   return {
     users,
     count,
-    hasMore
+    hasMore,
+    usersId
   };
 };
 

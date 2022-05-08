@@ -19,10 +19,10 @@
     "markdown-to-jsx": "^7.1.0",
     "mic-recorder-to-mp3": "^2.2.2",
     "qrcode.react": "^1.0.0",
-    "react": "^16.13.1",
+    "react": "^18.1.0",
     "react-bootstrap-icons": "^1.8.2",
     "react-color": "^2.19.3",
-    "react-dom": "^16.13.1",
+    "react-dom": "^18.1.0",
     "react-modal-image": "^2.5.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
@@ -52,5 +52,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.3"
   }
 }

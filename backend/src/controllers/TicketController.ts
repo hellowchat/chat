@@ -3,6 +3,7 @@ import { getIO } from "../libs/socket";
 
 import CreateTicketService from "../services/TicketServices/CreateTicketService";
 import DeleteTicketService from "../services/TicketServices/DeleteTicketService";
+import ListTicketsServiceFull from "../services/TicketServices/ListTicketsServiceFull";
 import ListTicketsService from "../services/TicketServices/ListTicketsService";
 import ShowTicketService from "../services/TicketServices/ShowTicketService";
 import UpdateTicketService from "../services/TicketServices/UpdateTicketService";
@@ -19,6 +20,16 @@ type IndexQuery = {
   withUnreadMessages: string;
   queueIds: string;
 };
+
+
+
+type FilterFullQuery = {
+  dateIni: string;
+  dateFin: string;
+  userId: string;
+
+};
+
 
 interface TicketData {
   contactId: number;
@@ -129,3 +140,30 @@ export const remove = async (
 
   return res.status(200).json({ message: "ticket deleted" });
 };
+
+
+
+
+export const fullfilter = async (req: Request, res: Response): Promise<Response> => {
+  const {
+    dateIni,
+    dateFin,
+    userId,
+
+  } = req.query as FilterFullQuery;
+
+
+  const {
+    tickets,
+    open,
+    pending,
+    closed } = await ListTicketsServiceFull({
+      dateIni,
+      dateFin,
+      userId,
+
+    });
+
+  return res.status(200).json({ tickets, open: open, pending: pending, closed: closed });
+};
+
