@@ -22,8 +22,14 @@ const useStyles = makeStyles(theme => ({
 		paddingTop: theme.spacing(4),
 		paddingBottom: theme.spacing(4),
 	},
-	fixedHeightPaper: {
-		boxShadow: "none", //
+
+	Paper: {
+		elevation: 0,
+		boxShadow: "none"
+	},
+	
+	fixedHeightPaper: { //
+		boxShadow: "none",
 		padding: theme.spacing(2),
 		display: "flex",
 		overflow: "auto",
@@ -31,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 		height: 240,
 	},
 	customFixedHeightPaper: {
-		boxShadow: "none", //
+		boxShadow: "none",
 		padding: theme.spacing(2),
 		display: "flex",
 		overflow: "auto",
@@ -39,12 +45,33 @@ const useStyles = makeStyles(theme => ({
 		height: 120,
 	},
 	customFixedHeightPaperLg: {
-		boxShadow: "none", //
+		boxShadow: "none",
 		padding: theme.spacing(2),
 		display: "flex",
 		overflow: "auto",
 		flexDirection: "column",
 		height: "100%",
+	},
+	customFixedwidth: {
+		margin: 2,
+		display: "flex",
+		padding: theme.spacing(2),
+		boxShadow: "none",
+		backgroundColor: "#F0F4F8",
+		height: 72,
+		width: 190,
+		justifyContent: "center",
+		alignItems: "center"
+	},
+
+	customFixedbutton: {
+		display: "flex",
+		boxShadow: "none",
+		backgroundColor: "#F0F4F8",
+		height: 72,
+		width: 190,
+		justifyContent: "flex-start",
+		alignItems: "center"
 	},
 }))
 
@@ -124,65 +151,83 @@ const Dashboard = () => {
 
 	}, []);
 
+	/* 	const [spacing, setSpacing] = useState(2);
+	
+		const handleChange = (event) => {
+			setSpacing(Number(event.target.value));
+		}; */
+
 	return (
 		<div>
+			<Grid container className={classes.root} spacing={2}>
+				<Grid item xs={12}>
+					<Grid container justifyContent="center" spacing={0}>
+						<Grid item>
+							<Paper className={classes.customFixedwidth}>
+								<Select
+									value={userId}
+									onChange={
+										(e) => setUserId(e.target.value)}
+									style={{ width: '150px'}}
+
+									name="searchUserId"
+									className="">
+
+									{users.map((e) => {
+
+										return <MenuItem value={e.id} key={e.id}>
+											{e.name}
+										</MenuItem>
+									})}
+
+								</Select>
+							</Paper>
+						</Grid>
+						<Grid item>
+							<Paper className={classes.customFixedwidth}>
+								<TextField
+								
+									id="date"
+									label="Data Inicial"
+									type="date"
+									defaultValue={dateIni}
+									className={classes.textField}
+									InputLabelProps={{
+										shrink: true,
+									}}
+									onChange={(e) => setDateIni(e.target.value)}
+								/>
+							</Paper>
+						</Grid>
+						<Grid item>
+							<Paper className={classes.customFixedwidth}>
+								<TextField
+									id="date"
+									label="Data Final"
+									type="date"
+									defaultValue={dateFin}
+									className={classes.textField}
+									InputLabelProps={{
+										shrink: true,
+									}}
+									onChange={(e) => setDateFin(e.target.value)}
+								/>
+							</Paper>
+						</Grid>
+						<Grid item>
+							<Paper className={classes.customFixedbutton}>
+								<Button variant="contained" color="primary" className={classes.button} onClick={() => buttonSearchByUserId()} disableElevation>
+									Filtrar
+								</Button>
+							</Paper>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+
+
 			<Container maxWidth="lg" className={classes.container}>
 
-
-				<form className={classes.container} noValidate>
-
-
-
-
-					<Select
-						value={userId}
-						onChange={
-							(e) => setUserId(e.target.value)}
-						style={{ width: '150px', marginRight: '10px' }}
-
-						name="searchUserId"
-						className=""
-					>
-
-						{users.map((e) => {
-
-							return <MenuItem value={e.id} key={e.id}>
-								{e.name}
-							</MenuItem>
-						})}
-
-					</Select>
-
-
-
-					<TextField
-						id="date"
-						label="Data Inicial"
-						type="date"
-						defaultValue={dateIni}
-						className={classes.textField}
-						InputLabelProps={{
-							shrink: true,
-						}}
-						onChange={(e) => setDateIni(e.target.value)}
-					/>
-
-					<TextField
-						id="date"
-						label="Data Final"
-						type="date"
-						defaultValue={dateFin}
-						className={classes.textField}
-						InputLabelProps={{
-							shrink: true,
-						}}
-						onChange={(e) => setDateFin(e.target.value)}
-					/>
-					<Button variant="outlined" color="primary" className={classes.button} onClick={() => buttonSearchByUserId()}>
-						Search
-					</Button>
-
-				</form>
 				<Grid container spacing={3}>
 					<Grid item xs={4}>
 						<Paper className={classes.customFixedHeightPaper} style={{ overflow: "hidden" }}>
@@ -227,7 +272,7 @@ const Dashboard = () => {
 					</Grid>
 				</Grid>
 			</Container>
-		</div>
+		</div >
 	)
 }
 
